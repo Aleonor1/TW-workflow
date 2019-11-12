@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.eclipse.swt.widgets.Composite;
 
 import com.ssn.ssijs.workflow.server.Config;
 import com.ssn.ssijs.workflow.server.ConfigReader;
@@ -27,12 +26,8 @@ import com.ssn.ssijs.workflow.server.ConfigReader;
 @XmlRootElement
 public class Workflow {
 
-	Map<String, Composite> pagesMap = new HashMap<>();
 	private static Workflow workflow = null;
 
-	public Map<String, Composite> getMap() {
-		return pagesMap;
-	}
 
 	public static Workflow getInstance() {
 		XMLReader reader = XMLReader.getInstance();
@@ -77,10 +72,6 @@ public class Workflow {
 	@XmlAttribute
 	public String getStartPage() {
 		return startPage;
-	}
-
-	public void addComposite(String string, Composite composite) {
-		pagesMap.put(string, composite);
 	}
 
 	public void setStartPage(String sP) {
