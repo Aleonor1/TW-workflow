@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<workflow startPage="pg_login">
+        <pages>
+                <page id="pg_login" title="Login" type="edit_page">
+                        <edit id="ed_badge"  label="Badge" password="true"></edit>
+                        <button id="bt_login" label="OK" target="ac_login" selected="true"/>
+                        <button id="bt_exit" label="Cancel" target="exit" />
+                </page>
+                <page id="pg_view" entity="Order" title="View orders" type="view_page">
+                        <list id="ls_orders_view" entity="com.ssn.ssijs.workflow.bl.PickingOrder" whereClause=" where status != 'FINISHED'">
+                          <column id="col_orderNo" name="Order Number" field="orderNr"/>
+                          <column id="col_status" name="Status" field="status"/>
+                        </list>
+                        <button id="bt_start" label="Start" target="ac_select"/> 
+                        <button id="bt_cancelview" label="Back" target="pg_login"/> 
+                </page>
+   				<page id="pg_scantarget" title="View orders" type="edit_page">
+   					   	<edit id="ed_loadUnit"  label="Target Load Unit" ></edit>
+                        <button id="bt_ok" label="OK" target="ac_scan" selected="true"/> 
+                        <button id="bt_cancelviewscan" label="Back" target="pg_view"/> 
+                </page>      
+                <page id="pg_pick" title="Pick" type="edit_page">
+                		<edit id="ed_barcode"  label="Barcode" ></edit>
+						<label id="label_text" source = "sa" value="" />
+						<label id="label_todo" source = "sa" value="Scan article for confirmation" />
+                        <button id="bt_okpick" label="OK" target="ac_pick"/> 
+                        <button id="bt_cancelviewpick" label="Back" target="pg_scantarget"/> 
+                </page>             
+                <page id="pg_error" title="Error" type="error_page">
+                		<label id="label_error" source="message"/>
+                        <button id="bt_back" label="Back" target="pg_view" selected = "true"/> 
+                </page>
+                 <page id="pg_pick_error" title="Error" type="error_page">
+                		<label id="label_error_pick" source="message"/>
+                        <button id="bt_back1" label="Scan again" target="pg_pick" selected = "true"/> 
+                </page>
+                
+        	</pages>
+        		<actions>
+                <action id="ac_login" target="checkUser">
+                        <param source="ed_badge"></param>
+                        <output value="OK" target="pg_view"/>
+                        <output value="ERROR" target="pg_error"/>
+                </action>
+                
+                 <action id="ac_select" target="selectObject">
+                        <param source="col_orderNo"></param>
+                        <output value="OK" target="pg_scantarget"/>
+                        <output value="ERROR" target="pg_error"/>
+                </action>
+            	    
+	      		<action id="ac_scan" target="selectLu">
+                        <param source="ed_loadUnit"></param>
+                        <output value="OK" target="pg_pick"/>
+                        <output value="ERROR" target="pg_error"/>
+                </action>
+                
+                <action id="ac_pick" target="getItems">
+                        <param source="ed_loadUnit"></param>
+                        <output value="OK" target="pg_pick"/>
+                        <output value="FINISH" target="pg_view"/>
+                        <output value="PICKING ERROR" target="pg_pick_error"/>
+                        <output value="ERROR" target="pg_error"/>
+                </action>
+                
+        </actions>
+</workflow>

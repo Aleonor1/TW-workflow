@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<workflow startPage="pg_start">
+        <pages>
+                <page id="pg_start" title="Main menu" type="menu_page">
+                        <choice id="ch_addDrug" value="Add Drug" target="pg_addDrug"></choice>
+                        <choice id="ch_addStock" value="Add Stock" target="pg_addStock"></choice>
+                        <choice id="ch_removeDrug" value="Remove Drug" target="pg_remove"></choice>
+                        <choice id="ch_inventory" value="Inventory" target="pg_view"></choice>
+                        <choice id="ch_stockOrder" value="Generate Order" target="pg_stockOrder"></choice>
+                        <choice id="ch_history" value="History" target="pg_view"></choice>
+                        <choice id="ch_view" value="View" target="pg_view"></choice>
+                        <choice id="ch_exit" value="Exit" target="pg_start"></choice>
+                </page>
+                <page id="pg_addDrug" entity="Article" title="Add Drug" type="edit_page">
+                        <choice id="ch_add" value="Add" target="pg_add"></choice>
+                        <edit id="ed_name" label="Name" field="name"></edit>
+                        <edit id="ed_quant" label="Quantity" field="quantity"></edit>
+                        <button id="bt_addDrug" label="OK" target="ac_addarticle"/> 
+                        <button id="bt_canceladdDrug" label="Cancel" target="pg_start"/> 
+                 </page>
+
+                  <page id="pg_addStock" entity="Stock" title="Add Stock" type="edit_page">
+                        <edit id="ed_barcode" label="Barcode" field="barcode"></edit>
+                        <edit id="ed_nameStock" label="Name" field="name"></edit>
+                        <edit id="ed_quantStock" label="Quantity" field="quantity"></edit>
+                        <button id="bt_addarticles" label="OK" target="ac_addarticle"/> 
+                        <button id="bt_canceladdStock" label="Cancel" target="pg_start"/> 
+                 </page>
+
+                <page id="pg_stockOrder" entity="Stock" title="Add Stock" type="edit_page">
+                        <button id="bt_generateOrder" label="Generate order" target="ac_addarticle"/> 
+                        <button id="bt_canceladd" label="Cancel" target="pg_start"/> 
+                 </page>
+
+
+                <page id="pg_view" entity="Article" title="View articles" type="view_page">
+                        <list id="ls_articles_view" entity="Article">
+                          <column id="col_barcode" name="barcode"/>
+                          <column id="col_name" name="name"/>
+                        </list>
+                        <button id="bt_addarticleview" label="Add new" target="pg_add"/> 
+                        <button id="bt_cancelview" label="Back" target="pg_start"/> 
+                </page>
+                <page id="pg_remove" entity="Article" title="Remove article" type="view_page">
+                        <list id="ls_articles_remove" entity="Article">
+                          <column id="col_barcode" name="barcode"/>
+                          <column id="col_name" name="name"/>
+                        </list>
+                        
+                        <button id="bt_removearticle" label="Remove selected" target="ac_removearticle"/> 
+                        <button id="bt_cancelremove" label="Back" target="pg_start"/> 
+                </page>
+                <page id="pg_error" title="Error" type="error_page">
+                        <button id="bt_back" label="Back" target="pg_start"/> 
+                </page>
+                
+        </pages>
+        <actions>
+                <action id="ac_addarticle" target="addArticle">
+                        <param source="ed_barcodeAdd"></param>
+                        <param source="ed_nameAdd"></param>
+                        <output value="OK" target="pg_start"/>
+                        <!-- <choice id="ch_searchDrug" value="Serach Drug" target="pg_searchDrug"></choice> -->
+                        <choice id="ch_removeDrug" value="Remove Drug" target="pg_remove"></choice>
+                        <choice id="ch_inventory" value="Inventory" target="pg_view"></choice>
+                        <choice id="ch_stockOrder" value="Generate Order" target="pg_stockOrder"></choice>
+                        <choice id="ch_history" value="History" target="pg_view"></choice>
+                        <choice id="ch_view" value="View" target="pg_view"></choice>
+                        <choice id="ch_exit" value="Exit" target="pg_start"></choice>
+                </action>
+                <page id="pg_addDrug" entity="Article" title="Add Drug" type="edit_page">
+                        <choice id="ch_add" value="Add" target="pg_add"></choice>
+                        <edit id="ed_name" label="Name" field="name"></edit>
+                        <edit id="ed_quant" label="Quantity" field="quantity"></edit>
+                        <button id="bt_addDrug" label="OK" target="ac_addarticle"/> 
+                        <button id="bt_canceladdDrug" label="Cancel" target="pg_start"/> 
+                 </page>
+
+                  <page id="pg_addStock" entity="Article" title="Add Stock" type="edit_page">
+                        <edit id="ed_barcode" label="Barcode" field="barcode"></edit>
+                        <edit id="ed_nameStock" label="Name" field="name"></edit>
+                        <edit id="ed_quantStock" label="Quantity" field="quantity"></edit>
+                        <button id="bt_addarticles" label="OK" target="ac_addarticle"/> 
+                        <button id="bt_canceladdStock" label="Cancel" target="pg_start"/> 
+                 </page>
+
+                <page id="pg_stockOrder" entity="Article" title="Add Stock" type="edit_page">
+                        <button id="bt_generateOrder" label="Generate order" target="ac_addarticle"/> 
+                        <button id="bt_canceladd" label="Cancel" target="pg_start"/> 
+                 </page>
+
+
+                <page id="pg_view" entity="Article" title="View articles" type="view_page">
+                        <list id="ls_articles_view" entity="Article">
+                          <column id="col_barcode" name="barcode"/>
+                          <column id="col_name" name="name"/>
+                        </list>
+                        <button id="bt_addarticleview" label="Add new" target="pg_add"/> 
+                        <button id="bt_cancelview" label="Back" target="pg_start"/> 
+                </page>
+
+                <page id="pg_remove" entity="Article" title="Remove article" type="view_page">
+                        <list id="ls_articles_remove" entity="Article">
+                          <column id="col_barcode" name="barcode"/>
+                          <column id="col_name" name="name"/>
+                        </list>
+                        
+                        <button id="bt_removearticle" label="Remove selected" target="ac_removearticle"/> 
+                        <button id="bt_cancelremove" label="Back" target="pg_start"/> 
+                </page>
+                <page id="pg_error" title="Error" type="error_page">
+                        <button id="bt_back" label="Back" target="pg_start"/> 
+                </page>
+                
+        </actions>
+        <actions>
+                <action id="ac_addarticle" target="addArticle">
+                        <param source="ed_barcodeAdd"></param>
+                        <param source="ed_nameAdd"></param>
+                        <output value="OK" target="pg_start"/>
+                        <output value="ERROR" target="pg_error"/>
+                </action>
+
+                <action id="ac_searchArticle" target="searchArticle">
+                        <param source="ed_barcodeAdd"></param>
+                        <output value="ERROR" target="pg_error"/>
+                </action>
+                <action id="ac_removearticle" target="removeArticle">
+                        <param source="col_barcode"></param>
+                        <output value="OK" target="pg_start"/>
+                        <output value="ERROR" target="pg_error"/>
+                </action>
+        </actions>
+</workflow>

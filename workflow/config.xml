@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config>
+	<workflowfile>page2.xml</workflowfile>
+	<ip>localhost</ip>
+	<serverport>8080</serverport>
+	<actionClass>com.ssn.ssijs.workflow.server.ActionsImpl</actionClass>
+</config>

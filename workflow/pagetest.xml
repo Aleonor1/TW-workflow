@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<workflow startPage="pg_first">
+        <pages>
+                <page id="pg_first" title="Badge id" type="edit_page">
+                        <edit id="ed_badge" label="Badge"></edit>
+                        <button id="bt_login" label="Login" target="ac_login" selected = "true"/> 
+                        <button id="bt_cancel" label="Cancel" target="pg_first"/> 
+                </page>
+
+                <page id="pg_start" title="Welcome" type="menu_page">
+					<choice id="ch_add" value="Welcome" target="pg_first"></choice>
+                </page>
+
+
+                <page id="pg_error" title="Error" type="error_page">
+                		<label id="label_error" source="message"/>
+                        <button id="bt_back" label="Back" target="pg_first"  selected = "true"/> 
+                </page>
+                
+        </pages>
+        <actions>
+                <action id="ac_login" target="login">
+                        <param source="ed_badge"></param>
+                        <output value="OK" target="pg_start"/>
+                        <output value="ERROR" target="pg_error"/>
+                </action>
+        </actions>
+</workflow>
